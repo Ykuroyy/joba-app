@@ -39,6 +39,24 @@
     </div>
 
     <script>
+        function clearQuestionState(questionId) {
+            const questionElement = document.getElementById(`question${questionId}`);
+            if (questionElement) {
+                // Clear radio button selection
+                const radioButtons = questionElement.querySelectorAll(`input[type="radio"][name="${questionId}"]`);
+                radioButtons.forEach(radio => {
+                    radio.checked = false;
+                });
+
+                // Clear feedback message
+                const feedbackElement = document.getElementById(`feedback${questionId}`);
+                if (feedbackElement) {
+                    feedbackElement.textContent = '';
+                    feedbackElement.style.color = '';
+                }
+            }
+        }
+
         function showQuestion(questionId) {
             document.getElementById('questionList').style.display = 'none';
             document.getElementById('quizForm').style.display = 'block';
@@ -49,6 +67,9 @@
                 q.style.display = 'none';
             });
 
+            // Clear state for the question about to be displayed
+            clearQuestionState(questionId);
+
             document.getElementById(`question${questionId}`).style.display = 'block';
         }
 
@@ -56,6 +77,10 @@
             document.getElementById('questionList').style.display = 'block';
             document.getElementById('quizForm').style.display = 'none';
             document.getElementById('mainTitle').textContent = '乗馬5級ライセンス対策クイズ';
+
+            // Clear state for all questions when returning to the list
+            const allQuestionIds = Array.from(document.querySelectorAll('.question')).map(q => parseInt(q.id.replace('question', '')));
+            allQuestionIds.forEach(id => clearQuestionState(id));
 
             const questions = document.querySelectorAll('.question');
             questions.forEach(q => {
