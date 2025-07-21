@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>乗馬5級ライセンス クイズ</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 id="mainTitle">乗馬5級ライセンス対策クイズ</h1>
+
+        <div id="questionList">
+            <h2>問題を選択してください</h2>
+            {% for question in questions %}
+            <button class="question-select-btn" onclick="showQuestion({{ question.id }})">
+                問題{{ question.id }}: {{ question.question | truncate(30, True, '...') }}
+            </button>
+            {% endfor %}
+        </div>
+
+        <form id="quizForm" style="display:none;">
+            {% for question in questions %}
+            <div class="question" id="question{{ question.id }}" style="display:none;">
+                <h2>問題{{ question.id }}: {{ question.question }}</h2>
+                <div class="options">
+                    {% for option in question.options %}
+                    <div class="option">
+                        <input type="radio" id="q{{ question.id }}_{{ loop.index }}" name="{{ question.id }}" value="{{ option }}" onclick="checkAnswer({{ question.id }}, this.value)">
+                        <label for="q{{ question.id }}_{{ loop.index }}">{{ option }}</label>
+                    </div>
+                    {% endfor %}
+                </div>
+                <p id="feedback{{ question.id }}" class="feedback"></p>
+                <button type="button" onclick="showQuestionList()" class="back-to-list-btn">問題一覧に戻る</button>
+            </div>
+            {% endfor %}
+        </form>
+    </div>
+
+    <script>
+        function showQuestion(questionId) {
+            document.getElementById('questionList').style.display = 'none';
+            document.getElementById('quizForm').style.display = 'block';
+            document.getElementById('mainTitle').textContent = '問題' + questionId;
+
+            const questions = document.querySelectorAll('.question');
+            questions.forEach(q => {
+                q.style.display = 'none';
+            });
+
+            document.getElementById(`question${questionId}`).style.display = 'block';
+        }
+
+        function showQuestionList() {
+            document.getElementById('questionList').style.display = 'block';
+            document.getElementById('quizForm').style.display = 'none';
+            document.getElementById('mainTitle').textContent = '乗馬5級ライセンス対策クイズ';
+
+            const questions = document.querySelectorAll('.question');
+            questions.forEach(q => {
+                q.style.display = 'none';
+            });
+        }
+
+        async function checkAnswer(questionId, selectedOption) {
+            const response = await fetch('/check_answer', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    question_id: questionId,
+                    selected_option: selectedOption
+                }),
+            });
+            const data = await response.json();
+            const feedbackElement = document.getElementById(`feedback${questionId}`);
+            if (data.correct) {
+                feedbackElement.textContent = '正解！';
+                feedbackElement.style.color = 'green';
+            } else {
+                feedbackElement.textContent = '不正解...';
+                feedbackElement.style.color = 'red';
+            }
+        }
+    </script>
+</body>
+</html>

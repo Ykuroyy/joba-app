@@ -1,0 +1,189 @@
+/* General Body Styles */
+body {
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    background-color: #f0eada; /* A light parchment color */
+    color: #4a2e1a; /* A dark brown for text, like leather */
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url('https://www.transparenttextures.com/patterns/leather.png'); /* Subtle leather texture */
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 700px;
+    text-align: center;
+    border: 5px solid #8d6e63; /* A leather-like border */
+}
+
+/* Headings and Text */
+h1 {
+    color: #5d4037; /* A darker, richer brown */
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 1.2em;
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+/* Quiz Question Styling */
+.question {
+    margin-bottom: 25px;
+    padding: 15px;
+    background: #fafafa;
+    border-left: 5px solid #a1887f; /* Accent color */
+    border-radius: 5px;
+}
+
+/* Options Styling */
+.options {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.option {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.option label {
+    display: block;
+    padding: 15px;
+    background: #fff;
+    border: 2px solid #d7ccc8; /* Light brown border */
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+    font-size: 16px;
+}
+
+.option input[type="radio"] {
+    display: none; /* Hide the default radio button */
+}
+
+.option input[type="radio"]:checked + label {
+    background-color: #c5a691; /* A warm, saddle-brown */
+    border-color: #8d6e63;
+    color: #fff;
+    font-weight: bold;
+}
+
+.option label:hover {
+    background-color: #e0dace;
+}
+
+/* Feedback message styling */
+.feedback {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+/* Question List Button Styling */
+.question-select-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #8d6e63; /* Brown */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    text-align: left;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.question-select-btn:hover {
+    background-color: #6d4c41; /* Darker brown */
+    transform: translateY(-2px);
+}
+
+/* Back to List Button Styling */
+.back-to-list-btn {
+    display: block;
+    width: 80%;
+    margin: 20px auto 0 auto;
+    padding: 15px;
+    background-color: #a1887f; /* Accent color */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.back-to-list-btn:hover {
+    background-color: #8d6e63; /* Darker accent */
+    transform: translateY(-2px);
+}
+
+/* Buttons (Existing styles, kept for consistency if needed elsewhere) */
+.submit-btn, .retry-btn {
+    display: inline-block;
+    width: 80%;
+    padding: 20px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #795548; /* A solid, earthy brown */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.submit-btn:hover, .retry-btn:hover {
+    background-color: #6d4c41; /* A slightly darker brown on hover */
+    transform: translateY(-2px);
+}
+
+/* Result Page Specifics */
+.score {
+    font-size: 1.5em;
+    margin: 20px 0;
+}
+
+.score span {
+    font-weight: bold;
+    color: #d32f2f; /* A highlight color for the score */
+}
+
+.congrats {
+    font-size: 1.8em;
+    color: #c7a500; /* A gold color for congratulations */
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+
+    .submit-btn, .retry-btn {
+        padding: 18px;
+        font-size: 20px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+}
